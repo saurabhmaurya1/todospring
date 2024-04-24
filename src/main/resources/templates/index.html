@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>To Do list
+</h1>
+<div>
+    <ul>
+        <li th:each ="item:${data}"><span th:text="${item.tasks}"></span><a th:href="@{/todo/delete/{id}(id=${item.id})}">Delete</a><a th:href="@{/update/{id}(id=${item.id})}">Update</a></li>
+    </ul>
+</div>
+<form action="/todo/add" method="post">
+    <input type="text" id="name" name="task" placeholder="add task">
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
