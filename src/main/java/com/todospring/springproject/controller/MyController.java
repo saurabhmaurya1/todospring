@@ -42,10 +42,20 @@ public class MyController {
         return "redirect:/todo";
     }
 
-    @PutMapping("/update/{id}")
-    public String updateTask(@RequestParam("task") ToDoEntites task,@PathVariable int id){
-        task.setId(id);
-        toDoRepositry.save(task);
+
+    @GetMapping("/update/{id}")
+    public String editTask(@PathVariable("id") int id,Model model){
+        Optional<ToDoEntites> t = toDoRepositry.findById(id);
+        model.addAttribute("data",t.get());
+        return "update";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateTask(@RequestParam("task") String task,@PathVariable int id){
+        ToDoEntites t=new ToDoEntites();
+        t.setTasks(task);
+        t.setId(id);
+        toDoRepositry.save(t);
         return "redirect:/todo";
 
     }
